@@ -1,17 +1,25 @@
 import argparse
 from typing import List
+from functools import reduce
 
 import pytest
 
 
 def compute(s: str) -> int:
-    # Implement solution here!
-    return 0
+    # import pdb; pdb.set_trace()
+    total = 0
+    for dim in s.strip().split('\n'):
+        dim = list(map(int, dim.split('x')))
+        dim.sort()
+        total += 2*(dim[0]+dim[1])
+        total += reduce(lambda x,y:x*y, dim, 1)
+    return total
 
 @pytest.mark.parametrize(
     ('input_s', 'expected'),
     (
-        # put the given test cases here
+        ('2x3x4', 34),
+        ('1x1x10', 14),
     ),
 )
 def test(input_s: List[int], expected: int) -> None:

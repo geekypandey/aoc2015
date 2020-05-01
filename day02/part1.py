@@ -5,13 +5,19 @@ import pytest
 
 
 def compute(s: str) -> int:
-    # Implement solution here!
-    return 0
+    # import pdb; pdb.set_trace()
+    total = 0
+    for dim in s.strip().split('\n'):
+        l, w, h = map(int, dim.split('x'))
+        area = 2*(l*w + w*h + h*l) + min(l*w, w*h, h*l)
+        total += area
+    return total
 
 @pytest.mark.parametrize(
     ('input_s', 'expected'),
     (
-        # put the given test cases here
+        ('2x3x4', 58),
+        ('1x1x10', 43),
     ),
 )
 def test(input_s: List[int], expected: int) -> None:
